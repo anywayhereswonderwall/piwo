@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Beer from "../icons/beer.webp";
+
 const navAnimate = {
   hidden: { y: -800 },
   show: {
@@ -23,22 +23,12 @@ const buttonContainer = {
     },
   },
 };
-const buttonAnimate = {
-  hidden: { x: -200 },
-  show: {
-    x: 0,
-    transition: {
-      duration: 0.8,
-    },
-  },
-};
-
 const Header = ({ setCategory }) => {
   const [isMenu, setMenu] = useState(false);
   return (
     <AnimatePresence>
       <header className="header">
-        <div className="logo">{/* <img src={Beer} alt="" /> */}</div>
+        <div className="logo"></div>
         <div className="burger-container">
           <button onClick={() => setMenu(!isMenu)} className="burger">
             <div></div>
