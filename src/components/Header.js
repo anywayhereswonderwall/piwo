@@ -16,13 +16,6 @@ const navAnimate = {
     },
   },
 };
-const buttonContainer = {
-  show: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
 const Header = ({ setCategory }) => {
   const [isMenu, setMenu] = useState(false);
   return (
@@ -43,14 +36,7 @@ const Header = ({ setCategory }) => {
           exit="exit"
           variants={navAnimate}
           className="nav"
-        >
-          <motion.div
-            variants={buttonContainer}
-            initial="hidden"
-            animate="show"
-            className="button-container"
-          ></motion.div>
-        </motion.nav>
+        ></motion.nav>
       )}
     </AnimatePresence>
   );
