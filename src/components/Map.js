@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -7,7 +7,7 @@ import {
   Polygon,
 } from "@react-google-maps/api";
 
-const data = require("../data/data.json");
+const data = require("../data/dzejson3.json");
 const options = {
   disableDefaultUI: true,
   minZoom: 12,
@@ -53,7 +53,7 @@ const polygonOptions = {
   geodesic: false,
   zIndex: 1,
 };
-const Map = ({ setModal, userPos }) => {
+const Map = ({ setModal, userPos, modal }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -72,6 +72,12 @@ const Map = ({ setModal, userPos }) => {
       mapContainerClassName="map-container"
       center={{ lat: mapPos[0], lng: mapPos[1] }}
       zoom={14}
+      onClick={() => {
+        modal.open && setModal({ open: false });
+      }}
+      onDrag={() => {
+        modal.open && setModal({ open: false });
+      }}
     >
       <MarkerClusterer>
         {(clusterer) =>
@@ -84,7 +90,12 @@ const Map = ({ setModal, userPos }) => {
                 position={{ lat: lat, lng: lng }}
                 clusterer={clusterer}
                 onClick={() => {
-                  setModal({ open: true });
+                  setModal({
+                    open: true,
+                    address: e.address,
+                    category: e.category,
+                    placeId: e.place_id,
+                  });
                   setMapPos([lat, lng]);
                 }}
               />

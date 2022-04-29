@@ -1,23 +1,9 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useSpring } from "framer-motion";
 
-const navAnimate = {
-  hidden: { y: -800 },
-  show: {
-    y: 0,
-    transition: {
-      duration: 0.8,
-    },
-  },
-  exit: {
-    y: -800,
-    transition: {
-      duration: 0.6,
-    },
-  },
-};
 const Header = ({ setCategory }) => {
   const [isMenu, setMenu] = useState(false);
+  let y = useSpring(0, { stiffness: 100 });
   return (
     <AnimatePresence>
       <header className="header">
@@ -31,11 +17,28 @@ const Header = ({ setCategory }) => {
       {isMenu && (
         <motion.nav
           key={"nav"}
-          initial="hidden"
-          animate="show"
-          exit="exit"
-          variants={navAnimate}
+          initial={{ y: -800 }}
+          animate={{
+            y: 0,
+            transition: {
+              duration: 0.8,
+            },
+          }}
+          exit={{
+            y: -800,
+            transition: {
+              duration: 0.8,
+            },
+          }}
+          style={{ y }}
           className="nav"
+          drag="y"
+          dragConstraints={{ bottom: 0, top: 0 }}
+          onDragEnd={() => {
+            if (y.get() < -80) {
+              setMenu(false);
+            }
+          }}
         ></motion.nav>
       )}
     </AnimatePresence>

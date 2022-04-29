@@ -8,10 +8,12 @@ function App() {
   const [category, setCategory] = useState(1);
   const [modal, setModal] = useState({});
   const [userPos, setUserPos] = useState([]);
-  const getPosition = () => {
-    window.navigator.geolocation.getCurrentPosition((e) =>
-      setUserPos([e.coords.latitude, e.coords.longitude])
-    );
+  const getPosition = async () => {
+    try {
+      await window.navigator.geolocation.getCurrentPosition((e) =>
+        setUserPos([e.coords.latitude, e.coords.longitude])
+      );
+    } catch {}
   };
   useEffect(() => {
     getPosition();
@@ -19,7 +21,12 @@ function App() {
   return (
     <>
       <Header setCategory={setCategory} />
-      <Map userPos={userPos} setModal={setModal} category={category} />
+      <Map
+        userPos={userPos}
+        setModal={setModal}
+        category={category}
+        modal={modal}
+      />
       <Modal setModal={setModal} modal={modal} />
     </>
   );
