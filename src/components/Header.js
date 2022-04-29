@@ -39,7 +39,9 @@ const Header = ({ setCategory }) => {
               setMenu(false);
             }
           }}
-        ></motion.nav>
+        >
+          <h2>Upss, tu pojawi się więcej info na temat projektu :)</h2>
+        </motion.nav>
       )}
     </AnimatePresence>
   );
